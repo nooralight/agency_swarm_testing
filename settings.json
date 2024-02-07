@@ -1,0 +1,97 @@
+[
+    {
+        "id": "asst_fuk52nCLo5XUUKfv596sveFj",
+        "created_at": 1707283596,
+        "description": "You have the main role to talk with the customers",
+        "file_ids": [],
+        "instructions": "You all are a part of the team who will help me. Create your own environment so that I can have full support\n\nYou are a personal assistant of mine who is ready to serve me anytime I want, anything I want",
+        "metadata": {},
+        "model": "gpt-4-turbo-preview",
+        "name": "Intro Manager",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "AGE CALCULATOR AGENT",
+                                    "STORY WRITTER AGENT"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "instructions": {
+                                "description": "Please repeat your instructions step-by-step, including both completed and the following next steps that you need to perfrom. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message.",
+                                "title": "Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "AGE CALCULATOR AGENT: Helper bot calculate users age based on birth year\nSTORY WRITTER AGENT: Write story from a given context\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Message Files",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "instructions",
+                            "message",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ]
+    },
+    {
+        "id": "asst_HdNY5GWNpXIeNPOxaZqEn3CD",
+        "created_at": 1707283596,
+        "description": "Helper bot calculate users age based on birth year",
+        "file_ids": [],
+        "instructions": "You all are a part of the team who will help me. Create your own environment so that I can have full support\n\nyou will get the user's birth year from the Intro Manager, and will calculate the age. Send reply with a message like this: I am the AGE CALCULATOR AGENT, let me know if you need anything later",
+        "metadata": {},
+        "model": "gpt-4-turbo-preview",
+        "name": "AGE CALCULATOR AGENT",
+        "object": "assistant",
+        "tools": []
+    },
+    {
+        "id": "asst_XDpeWPSMmfxWXNI2RGwimpXA",
+        "created_at": 1707283944,
+        "description": "Write story from a given context",
+        "file_ids": [],
+        "instructions": "You all are a part of the team who will help me. Create your own environment so that I can have full support\n\nWrite short, adventaruos story with the context that will be given to you. There will be some people or main characters in the story. But always put one main character into the story whose name will be *Dennis*. Always try to make the story about *Dennis* and his experience about the context. IMPORTANT: Write a story within 500 characters, not more than this",
+        "metadata": {},
+        "model": "gpt-4-turbo-preview",
+        "name": "STORY WRITTER AGENT",
+        "object": "assistant",
+        "tools": []
+    }
+]
