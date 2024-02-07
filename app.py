@@ -3,6 +3,12 @@ from datetime import timedelta
 import time
 from threading import Thread
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+openai_key = os.getenv('OPENAI_KEY')
+
 app = Flask(__name__)
 app.secret_key = '5800d5d9e4405020d527f0587538abbe'
 
@@ -12,7 +18,7 @@ messages = []
 agency_arr =[]
 
 from agency_swarm import set_openai_key
-set_openai_key("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")
+set_openai_key(openai_key)
 from agency_swarm import Agency, Agent
 
 
@@ -63,4 +69,4 @@ def send_message():
 #     return jsonify({'messages': session["messages"]})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True,port=8000)
