@@ -1,5 +1,10 @@
 from agency_swarm import set_openai_key
-set_openai_key("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")
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+openai_key = os.getenv('OPENAI_KEY')
+set_openai_key(openai_key)
 
 from agency_swarm import Agency, Agent
 
